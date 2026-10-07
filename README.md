@@ -1,6 +1,6 @@
 # 智乃动态形象 · 离线分享版
 
-把一张智乃插画做成可以在浏览器中展示的 **2.5D 动态形象**，支持自动眨眼、发丝摆动、表情切换和头部参数调节。
+把一张由 **GPT 生成的智乃插画** 做成可以在浏览器中展示的 **2.5D 动态形象**，支持自动眨眼、发丝摆动、表情切换和头部参数调节。
 
 分享整理：[奶龙大人sama](https://space.bilibili.com/12723119) · [B站主页](https://space.bilibili.com/12723119)
 
@@ -38,7 +38,6 @@
 | `可编辑模型/智乃_分层模型.psd` | 完整画布的分层模型 |
 | `智乃_动态预览.mp4` | 8 秒效果预览 |
 | `智乃_效果预览.png` | 静态效果图 |
-| `B站信息.txt` | 分享者昵称和主页 |
 | `docs/制作说明.md` | 本次制作过程、修改和效果限制 |
 | `docs/上游README.md` | 保留的上游原始说明，部分文件与功能不属于本分享包 |
 | `LICENSE`、`THIRD_PARTY_NOTICES.md` | 上游许可证和来源说明 |
@@ -63,6 +62,7 @@
 
 ## 制作来源与署名
 
+- 人物原始插画由 **GPT 生成**，随后使用 See-Through 拆层并修正图层，制作成动态形象。
 - 本分享包整理：[奶龙大人sama](https://space.bilibili.com/12723119)。
 - 播放器基于 [Auto-live2D-beta](https://github.com/lTwTlol/Auto-live2D-beta)，其上游为 [Anime2.5DRig](https://github.com/852wa/Anime2.5DRig)。
 - 图片拆层使用 [See-Through](https://modelscope.cn/studios/ljsabc/See-Through)。
