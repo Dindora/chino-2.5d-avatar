@@ -1094,6 +1094,7 @@ function tick(now){
     micLevel+=(clamp(s*3.2,0,1)-micLevel)*0.45;
     tgt.mouthOpen=Math.max(tgt.mouthOpen,micLevel);
   }
+  if(robotMouth !== null) tgt.mouthOpen = robotMouth;
   for(const k in cur) cur[k]+=(tgt[k]-cur[k])*Math.min(1,dt*14);
   const e=Object.assign({},cur);
   camPhysScale+=((trkLive?0.5:1)-camPhysScale)*Math.min(1,dt*4);
@@ -1238,7 +1239,35 @@ async function init(){
   applySettings(s);
   await autoLoadLastPsd();
 }
-init();
+// Small public adapter shared by the browser bridge and desktop integrations.
+let robotMouth = null;
+window.ChinoAvatar = {
+  robotMode() {
+    for (const [key, id] of [['talk','tgTalk'],['mic','tgMic'],['cam','tgCam']]) {
+      auto[key] = false; document.getElementById(id).classList.remove('on');
+    }
+    turnOffOsf(); robotMouth = 0;
+  },
+  mouth(value) { robotMouth = clamp(Number(value) || 0, 0, 1); },
+  params(values) {
+    for (const [key, value] of Object.entries(values)) {
+      const id = Object.keys(sliders).find(id => sliders[id] === key);
+      if (!id || typeof value !== 'number' || !Number.isFinite(value)) continue;
+      const el = document.getElementById(id);
+      setSlider(key, clamp(value, Number(el.min), Number(el.max)));
+      if (key === 'mouthOpen') robotMouth = clamp(value, 0, 1);
+    }
+  },
+  expression(name) {
+    if (!Object.hasOwn(presets, name)) return;
+    this.params(presets[name]);
+    clearPresetHighlight(); activePreset = name;
+    document.querySelector('[data-preset="' + name + '"]').classList.add('active');
+  }
+};
+init().then(() => {
+  if (new URLSearchParams(location.search).get('robot') === '1') window.ChinoAvatar.robotMode();
+});
 requestAnimationFrame(tick);
 })();
 </script>
@@ -1273,6 +1302,7 @@ previewButton.addEventListener('click', () => {
   setTimeout(() => recorder.stop(), 8000);
 });
 </script>
+<script src="lib/robot-bridge.js"></script>
 </body>
 </html>
 

@@ -16,6 +16,16 @@
 
 只想看效果，可以直接播放 [智乃_动态预览.mp4](智乃_动态预览.mp4)。
 
+## 连接 Python / AI 聊天机器人
+
+已提供本地 HTTP API，支持字幕、表情、参数控制、语音播放和音量驱动口型。Python 端无需额外依赖。
+
+1. 在项目目录运行 `python avatar_server.py`。
+2. 打开 <http://127.0.0.1:8765/?robot=1>，点击“启用机器人语音”。
+3. 另开终端运行 `python examples/robot_client.py`；带音频测试：`python examples/robot_client.py reply.wav`。
+
+接到已有机器人的完整示例与协议见 [Python 机器人接口](docs/Python机器人接口.md)。AI 回复和语音由自己的机器人生成，本项目负责形象展示。
+
 ## 能展示什么
 
 - 自动眨眼、待机动作与头发物理。
